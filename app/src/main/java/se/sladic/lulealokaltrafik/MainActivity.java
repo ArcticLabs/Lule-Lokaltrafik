@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         times.get(0),
                         date, times.get(1),
                         date);
+                //put extra
                 Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                 startActivity(intent);
             }
