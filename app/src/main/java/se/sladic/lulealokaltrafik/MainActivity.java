@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.os.AsyncTask;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,13 +32,20 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FormFiller formFiller = new FormFiller();
-                ArrayList<Result> res = formFiller.search(fromEdit.getText().toString(),
+//                FormFiller formFiller = new FormFiller();
+//                ArrayList<Result> res = formFiller.search(fromEdit.getText().toString(),
+//                        toEdit.getText().toString(),
+//                        times.get(0),
+//                        date,
+//                        times.get(1),
+//                        date);
+                AsyncTask formFillerTask = new FormFiller().execute(fromEdit.getText().toString(),
                         toEdit.getText().toString(),
                         times.get(0),
                         date,
                         times.get(1),
                         date);
+
                 //put extra here
                 Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                 startActivity(intent);
