@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FormFiller.OnTaskCompleted {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +32,6 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FormFiller formFiller = new FormFiller();
-//                ArrayList<Result> res = formFiller.search(fromEdit.getText().toString(),
-//                        toEdit.getText().toString(),
-//                        times.get(0),
-//                        date,
-//                        times.get(1),
-//                        date);
                 AsyncTask formFillerTask = new FormFiller().execute(fromEdit.getText().toString(),
                         toEdit.getText().toString(),
                         times.get(0),
@@ -46,9 +39,8 @@ public class MainActivity extends AppCompatActivity {
                         times.get(1),
                         date);
 
-                //put extra here
-                Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                //startActivity(intent);
             }
         });
     }
@@ -75,5 +67,10 @@ public class MainActivity extends AppCompatActivity {
         times.add(1, time2);
         System.out.println("Time1: " + time + "\nTime2: " + time2);
         return times;
+    }
+
+    @Override
+    public void onTaskCompleted(Object response) {
+
     }
 }

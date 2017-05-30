@@ -32,12 +32,12 @@ public class FormFiller extends AsyncTask {
     protected Object doInBackground(Object[] params) {
             try {
                 doc = Jsoup.connect(urlQuery)
-                        .data("inpPointFr", params[0].toString())
-                        .data("inpPointTo", params[1].toString())
-                        .data("inpTime", params[2].toString())
-                        .data("inpDate", params[3].toString())
-                        .data("inpTime2", params[4].toString())
-                        .data("inpDate2", params[5].toString())
+                        .data("inpPointFr", "Smedjegatan"/*params[0].toString()*/)
+                        .data("inpPointTo", "Porsön"/*params[1].toString()*/)
+                        .data("inpTime", "12:00"/*params[2].toString()*/)
+                        .data("inpDate", "2017-05-31"/*params[3].toString()*/)
+                        .data("inpTime2", "14:00"/*params[4].toString()*/)
+                        .data("inpDate2", "2017-05-31"/*params[5].toString()*/)
                         .data("cmdAction", "search")
                         .data("VerNo", "7.1.1.5.170.5685")
                         .data("Source", "querypage_adv")
@@ -46,10 +46,10 @@ public class FormFiller extends AsyncTask {
                 doc = Jsoup.connect(urlResult)
                         .data("selPointFr", doc.select("select[name=selPointFr]").select("select > option").first().val())
                         .data("selPointTo", doc.select("select[name=selPointTo]").select("select > option").first().val())
-                        .data("inpTime", params[2].toString())
-                        .data("inpDate", params[3].toString())
-                        .data("inpTime2", params[4].toString())
-                        .data("inpDate2", params[5].toString())
+                        .data("inpTime", "12:00"/*params[2].toString()*/)
+                        .data("inpDate", "2017-05-31"/*params[3].toString()*/)
+                        .data("inpTime2", "14:00"/*params[4].toString()*/)
+                        .data("inpDate2", "2017-05-31"/*params[5].toString()*/)
                         .data("cmdAction", "search")
                         .data("VerNo", "7.1.1.5.170.5685")
                         .data("Source", "querypage_adv")
@@ -62,7 +62,6 @@ public class FormFiller extends AsyncTask {
             ArrayList<Result> resultsArray = new ArrayList<>();
             Elements results = doc.select("tr#result-0");
             for(int i = 0; i < 4; i++) {
-                System.out.println(i + " try succeded!");
 
                 Result bus = new Result();
                 bus.departureTime   = results.select("tr > td:nth-of-type(2)").text();
@@ -95,5 +94,10 @@ public class FormFiller extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
+    }
+
+    public interface OnTaskCompleted {
+        void onTaskCompleted(Object response);
+
     }
 }
