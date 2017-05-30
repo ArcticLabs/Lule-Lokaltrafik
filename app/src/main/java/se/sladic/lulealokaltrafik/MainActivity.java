@@ -16,14 +16,18 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements FormFiller.OnTaskCompleted {
 
+    EditText fromEdit;
+    EditText toEdit;
+    Button searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button searchButton = (Button) findViewById(R.id.button);
-        final EditText fromEdit   = (EditText) findViewById(R.id.editText);
-        final EditText toEdit     = (EditText) findViewById(R.id.editText2);
+        searchButton    = (Button) findViewById(R.id.button);
+        fromEdit        = (EditText) findViewById(R.id.editText);
+        toEdit          = (EditText) findViewById(R.id.editText2);
 
         Calendar c  = Calendar.getInstance();
         final String date = buildDate(c);
@@ -32,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncTask formFillerTask = new FormFiller().execute(fromEdit.getText().toString(),
+                AsyncTask formFillerTask = new FormFiller(MainActivity.this);
+                formFillerTask.execute(fromEdit.getText().toString(),
                         toEdit.getText().toString(),
                         times.get(0),
                         date,
@@ -71,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
 
     @Override
     public void onTaskCompleted(Object response) {
-
+        //System.out.println("HÄR KOMMER DET FRÅN UI-TRÅDEN!\n");
+        //((ArrayList<Result>) response).get(0).print();
+        fromEdit.setVisibility(View.INVISIBLE);
+        toEdit.setVisibility(View.INVISIBLE);
+        searchButton.setVisibility(View.INVISIBLE);
     }
 }

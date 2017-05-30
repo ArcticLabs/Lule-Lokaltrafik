@@ -14,6 +14,12 @@ public class FormFiller extends AsyncTask {
     String urlQuery     = "http://193.45.213.123/lulea/v2/querypage_adv.aspx";
     String urlResult    = "http://193.45.213.123/lulea/v2/resultspage.aspx";
 
+    private OnTaskCompleted taskCompleted;
+
+    public FormFiller(OnTaskCompleted taskCompleted){
+        this.taskCompleted = taskCompleted;
+    }
+
     /**
      * Override this method to perform a computation on a background thread. The
      * specified parameters are the parameters passed to {@link #execute}
@@ -93,11 +99,11 @@ public class FormFiller extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
+        taskCompleted.onTaskCompleted(o);
+        //super.onPostExecute(o);
     }
 
     public interface OnTaskCompleted {
         void onTaskCompleted(Object response);
-
     }
 }
