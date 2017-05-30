@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Result> res = formFiller.search(fromEdit.getText().toString(),
                         toEdit.getText().toString(),
                         times.get(0),
-                        date, times.get(1),
+                        date,
+                        times.get(1),
                         date);
                 //put extra here
                 Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
@@ -48,7 +49,11 @@ public class MainActivity extends AppCompatActivity {
         int day     = c.get(Calendar.DATE);
         int month   = c.get(Calendar.MONTH);
         int year    = c.get(Calendar.YEAR);
-        String date = year + "-" + month + "-" + day;
+        String date;
+        if (month < 10) {
+            date = year + "-0" + month + "-" + day;
+        } else date = year + "-" + month + "-" + day;
+        System.out.println("Date: " + date);
         return date;
     }
 
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> times = new ArrayList<>();
         times.add(0, time);
         times.add(1, time2);
+        System.out.println("Time1: " + time + "\nTime2: " + time2);
         return times;
     }
 }

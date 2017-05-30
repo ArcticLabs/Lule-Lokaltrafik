@@ -45,6 +45,7 @@ public class FormFiller {
         ArrayList<Result> resultsArray = new ArrayList<>();
         Elements results = doc.select("tr#result-0");
         for(int i = 0; i < 4; i++) {
+            System.out.println(i + " try succeded!");
             Result bus = new Result();
             bus.departureTime   = results.select("tr > td:nth-of-type(2)").text();
             bus.arrivalTime     = results.select("tr > td:nth-of-type(3)").text();
