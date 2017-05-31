@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements FormFiller.OnTaskCompleted {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter reyclerAdapter;
+    private RecyclerView.LayoutManager recyclerLayoutManager;
 
     EditText fromEdit;
     EditText toEdit;
@@ -76,10 +82,13 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
 
     @Override
     public void onTaskCompleted(Object response) {
-        //System.out.println("HÄR KOMMER DET FRÅN UI-TRÅDEN!\n");
-        //((ArrayList<Result>) response).get(0).print();
-        fromEdit.setVisibility(View.INVISIBLE);
-        toEdit.setVisibility(View.INVISIBLE);
-        searchButton.setVisibility(View.INVISIBLE);
+        ArrayList<Result> r;
+        r = (ArrayList<Result>) response;
+        recyclerView = (RecyclerView) findViewById(R.id.resultRecycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(recyclerLayoutManager);
+        reyclerAdapter = new ResultAdapter(r);
+        recyclerView.setAdapter(reyclerAdapter);
     }
 }
