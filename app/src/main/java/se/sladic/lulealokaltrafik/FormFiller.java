@@ -1,8 +1,11 @@
 package se.sladic.lulealokaltrafik;
 
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -15,25 +18,13 @@ public class FormFiller extends AsyncTask {
     String urlResult    = "http://193.45.213.123/lulea/v2/resultspage.aspx";
 
     private OnTaskCompleted taskCompleted;
+    ProgressBar progressBar;
 
-    public FormFiller(OnTaskCompleted taskCompleted){
+    public FormFiller(OnTaskCompleted taskCompleted, ProgressBar pBar){
         this.taskCompleted = taskCompleted;
+        progressBar = pBar;
     }
 
-    /**
-     * Override this method to perform a computation on a background thread. The
-     * specified parameters are the parameters passed to {@link #execute}
-     * by the caller of this task.
-     * <p>
-     * This method can call {@link #publishProgress} to publish updates
-     * on the UI thread.
-     *
-     * @param params The parameters of the task.
-     * @return A result, defined by the subclass of this task.
-     * @see #onPreExecute()
-     * @see #onPostExecute
-     * @see #publishProgress
-     */
     @Override
     protected Object doInBackground(Object[] params) {
             try {
@@ -77,7 +68,15 @@ public class FormFiller extends AsyncTask {
 
                 results = results.next();
 
-                bus.line            = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(2) > a").first().text();
+                bus.line    = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(2) > a").first().text();
+                bus.from    = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(3) > a").first().text();
+                bus.to      = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(3) > a:nth-of-type(2)").first().text();
+                Element e = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3)").first();
+                if (e != null){
+                    bus.altbgLine    = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(2) > a").first().text();
+                    bus.altbgStation = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(3) > a").first().text();
+                    bus.altbgTime = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)").first().text();
+                }
                 bus.print();
 
                 resultsArray.add(bus);
@@ -89,7 +88,7 @@ public class FormFiller extends AsyncTask {
 
     @Override
     protected void onPreExecute(){
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -99,6 +98,7 @@ public class FormFiller extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
+        progressBar.setVisibility(View.INVISIBLE);
         taskCompleted.onTaskCompleted(o);
         //super.onPostExecute(o);
     }

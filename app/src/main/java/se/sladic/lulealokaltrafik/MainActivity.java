@@ -1,5 +1,6 @@
 package se.sladic.lulealokaltrafik;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -8,9 +9,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.AsyncTask;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
     EditText fromEdit;
     EditText toEdit;
     Button searchButton;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
         searchButton    = (Button) findViewById(R.id.button);
         fromEdit        = (EditText) findViewById(R.id.editText);
         toEdit          = (EditText) findViewById(R.id.editText2);
+        progressBar     = (ProgressBar) findViewById(R.id.progressBar);
 
         Calendar c  = Calendar.getInstance();
         final String date = buildDate(c);
@@ -42,16 +47,18 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncTask formFillerTask = new FormFiller(MainActivity.this);
+                AsyncTask formFillerTask = new FormFiller(MainActivity.this, progressBar);
+                View view = getCurrentFocus();
+                if (view != null){
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 formFillerTask.execute(fromEdit.getText().toString(),
                         toEdit.getText().toString(),
                         times.get(0),
                         date,
                         times.get(1),
                         date);
-
-                //Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
-                //startActivity(intent);
             }
         });
     }

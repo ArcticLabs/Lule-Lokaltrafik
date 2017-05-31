@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/fab_margin"
     android:weightSum="1">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_width="278dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        card_view:cardCornerRadius="4dp"
-        android:layout_weight="0.11">
+        card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="8dp">
 
             <TextView
                 android:id="@+id/from_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingLeft="@dimen/fab_margin"
                 android:text="from" />
 
             <TextView
@@ -32,6 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/from_text"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingLeft="@dimen/fab_margin"
                 android:text="to" />
 
             <TextView
@@ -39,6 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/to_text"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingLeft="@dimen/fab_margin"
                 android:text="time" />
 
             <TextView
@@ -46,14 +51,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/time_text"
+                android:layout_toRightOf="@+id/imageView"
+                android:paddingLeft="@dimen/fab_margin"
                 android:text="time" />
 
-            <TextView
-                android:id="@+id/line_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/changes_text"
-                android:text="line" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 
