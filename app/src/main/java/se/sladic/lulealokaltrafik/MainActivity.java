@@ -82,13 +82,13 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
 
     @Override
     public void onTaskCompleted(Object response) {
-        ArrayList<Result> r;
-        r = (ArrayList<Result>) response;
+        ArrayList<Result> results;
+        results = (ArrayList<Result>) response;
         recyclerView = (RecyclerView) findViewById(R.id.resultRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerLayoutManager);
-        reyclerAdapter = new ResultAdapter(r);
+        reyclerAdapter = new ResultAdapter(results);
         recyclerView.setAdapter(reyclerAdapter);
     }
 }
