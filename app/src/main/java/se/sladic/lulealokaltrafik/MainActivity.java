@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
         toEdit          = (EditText) findViewById(R.id.editText2);
         progressBar     = (ProgressBar) findViewById(R.id.progressBar);
 
-        Calendar c  = Calendar.getInstance();
-        final String date = buildDate(c);
-        final ArrayList<String> times = buildTime(c);
-
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,15 +51,14 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
                 }
                 formFillerTask.execute(fromEdit.getText().toString(),
                         toEdit.getText().toString(),
-                        times.get(0),
-                        date,
-                        times.get(1),
-                        date);
+                        buildTime(),
+                        buildDate());
             }
         });
     }
 
-    private String buildDate(Calendar c){
+    private String buildDate(){
+        Calendar c  = Calendar.getInstance();
         int day     = c.get(Calendar.DATE);
         int month   = c.get(Calendar.MONTH);
         int year    = c.get(Calendar.YEAR);
@@ -71,20 +66,15 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
         if (month < 10) {
             date = year + "-0" + month + "-" + day;
         } else date = year + "-" + month + "-" + day;
-        System.out.println("Date: " + date);
         return date;
     }
 
-    private ArrayList<String> buildTime(Calendar c){
+    private String buildTime(){
+        Calendar c  = Calendar.getInstance();
         int hour    = c.get(Calendar.HOUR_OF_DAY);
         int minute  = c.get(Calendar.MINUTE);
         String time = hour + ":" + minute;
-        String time2 = hour+2 + ":" + minute;
-        ArrayList<String> times = new ArrayList<>();
-        times.add(0, time);
-        times.add(1, time2);
-        System.out.println("Time1: " + time + "\nTime2: " + time2);
-        return times;
+        return time;
     }
 
     @Override
