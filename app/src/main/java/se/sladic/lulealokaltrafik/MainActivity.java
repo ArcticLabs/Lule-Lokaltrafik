@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -53,6 +54,23 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
                         toEdit.getText().toString(),
                         buildTime(),
                         buildDate());
+            }
+        });
+
+        toEdit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN){
+                    switch (keyCode){
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            searchButton.performClick();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
             }
         });
     }
