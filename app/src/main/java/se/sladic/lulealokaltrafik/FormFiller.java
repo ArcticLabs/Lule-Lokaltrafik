@@ -88,7 +88,7 @@ public class FormFiller extends AsyncTask {
                 bus.positionFrom3    = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(4)").first().text();
                 bus.departureTime3   = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)").first().text();
             }
-            //bus.print();
+            bus.print();
             resultsArray.add(bus);
 
             //Check if new day

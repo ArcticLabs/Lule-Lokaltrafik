@@ -16,15 +16,14 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     private ArrayList<Result> dataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView from, to, time, byten;
-        public ImageView line;
+        public TextView from, line1info;
+        public ImageView line1, line2, line3;
         public ViewHolder(View v){
             super(v);
-            from    = (TextView) v.findViewById(R.id.from_text);
-            to      = (TextView) v.findViewById(R.id.to_text);
-            time    = (TextView) v.findViewById(R.id.time_text);
-            byten   = (TextView) v.findViewById(R.id.changes_text);
-            line    = (ImageView) v.findViewById(R.id.imageView);
+            line1   = (ImageView) v.findViewById(R.id.imageView1);
+            line2   = (ImageView) v.findViewById(R.id.imageView2);
+            line3   = (ImageView) v.findViewById(R.id.imageView3);
+            line1info = (TextView) v.findViewById(R.id.textView1);
         }
     }
 
@@ -36,22 +35,50 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.result_cards, parent, false);
-
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.from.setText("Avg:        " + dataSet.get(position).departureTime1 + "  -  " + dataSet.get(position).from1);
-        holder.to.setText("Des:        " + dataSet.get(position).via2 + "  -  " + dataSet.get(position).departureTime2);
-        //holder.time.setText("Restid:    " + dataSet.get(position).travelTime);
-        //setChanges(holder, position);
-        holder.line.setBackgroundResource(setLinePicture(position));
+        if (dataSet.get(position).line3 != null){
+            setLinePicturesVisibility(3, holder);
+        } else if (dataSet.get(position).line2 != null){
+            setLinePicturesVisibility(2, holder);
+            holder.line1.setBackgroundResource(setLinePicture(position));
+        } else {
+            setLinePicturesVisibility(1, holder);
+            //holder.from.setText("Avg:        " + dataSet.get(position).departureTime1 + "  -  " + dataSet.get(position).from1);
+            //holder.to.setText("Des:        " + dataSet.get(position).via2 + "  -  " + dataSet.get(position).departureTime2);
+            holder.line1.setBackgroundResource(setLinePicture(position));
+            holder.line1info.setText(dataSet.get(position).departureTime1 + dataSet.get(position).from1 + dataSet.get(position).via1 + dataSet.get(position).positionFrom1);
+        }
     }
 
     @Override
     public int getItemCount() {
         return dataSet.size();
+    }
+
+    private void setLinePicturesVisibility(int lines, ViewHolder holder){
+        switch (lines){
+            case 1:
+                holder.line1.setVisibility(View.VISIBLE);
+                holder.line2.setVisibility(View.GONE);
+                holder.line3.setVisibility(View.GONE);
+                break;
+            case 2:
+                holder.line1.setVisibility(View.VISIBLE);
+                holder.line2.setVisibility(View.VISIBLE);
+                holder.line3.setVisibility(View.GONE);
+                break;
+            case 3:
+                holder.line1.setVisibility(View.VISIBLE);
+                holder.line2.setVisibility(View.VISIBLE);
+                holder.line3.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
     private int setLinePicture(int position){
