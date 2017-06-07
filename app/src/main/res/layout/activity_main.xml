@@ -124,6 +124,8 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/button"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/timeSelector"
+        android:layout_marginBottom="8dp" />
 
 </android.support.constraint.ConstraintLayout>

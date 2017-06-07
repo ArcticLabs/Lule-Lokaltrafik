@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
             @Override
             public void onClick(View v) {
                 timePicker.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.INVISIBLE);
                 AsyncTask formFillerTask = new FormFiller(MainActivity.this, progressBar);
                 View view = getCurrentFocus();
                 if (view != null){

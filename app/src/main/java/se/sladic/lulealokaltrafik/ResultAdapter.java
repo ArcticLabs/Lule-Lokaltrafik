@@ -42,10 +42,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.from.setText("Avg:        " + dataSet.get(position).departureTime + "  -  " + dataSet.get(position).from);
-        holder.to.setText("Des:        " + dataSet.get(position).arrivalTime + "  -  " + dataSet.get(position).to);
-        holder.time.setText("Restid:    " + dataSet.get(position).travelTime);
-        setChanges(holder, position);
+        holder.from.setText("Avg:        " + dataSet.get(position).departureTime1 + "  -  " + dataSet.get(position).from1);
+        holder.to.setText("Des:        " + dataSet.get(position).via2 + "  -  " + dataSet.get(position).departureTime2);
+        //holder.time.setText("Restid:    " + dataSet.get(position).travelTime);
+        //setChanges(holder, position);
         holder.line.setBackgroundResource(setLinePicture(position));
     }
 
@@ -55,44 +55,44 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     }
 
     private int setLinePicture(int position){
-        if (Objects.equals(dataSet.get(position).line, "1")){
+        if (Objects.equals(dataSet.get(position).line1, "1")){
             return R.drawable.line_one;
         }
-        else if (Objects.equals(dataSet.get(position).line, "2")){
+        else if (Objects.equals(dataSet.get(position).line1, "2")){
             return R.drawable.line_two;
         }
-        else if (Objects.equals(dataSet.get(position).line, "3")){
+        else if (Objects.equals(dataSet.get(position).line1, "3")){
             return R.drawable.line_three;
         }
-        else if (Objects.equals(dataSet.get(position).line, "4")){
+        else if (Objects.equals(dataSet.get(position).line1, "4")){
             return R.drawable.line_four;
         }
-        else if (Objects.equals(dataSet.get(position).line, "5")){
+        else if (Objects.equals(dataSet.get(position).line1, "5")){
             return R.drawable.line_five;
         }
-        else if (Objects.equals(dataSet.get(position).line, "6")){
+        else if (Objects.equals(dataSet.get(position).line1, "6")){
             return R.drawable.line_six;
         }
-        else if (Objects.equals(dataSet.get(position).line, "7")){
+        else if (Objects.equals(dataSet.get(position).line1, "7")){
             return R.drawable.line_seven;
         }
-        else if (Objects.equals(dataSet.get(position).line, "8")){
+        else if (Objects.equals(dataSet.get(position).line1, "8")){
             return R.drawable.line_eight;
         }
-        else if (Objects.equals(dataSet.get(position).line, "9")){
+        else if (Objects.equals(dataSet.get(position).line1, "9")){
             return R.drawable.line_nine;
         }
-        else if (Objects.equals(dataSet.get(position).line, "10")){
+        else if (Objects.equals(dataSet.get(position).line1, "10")){
             return R.drawable.line_ten;
         }
-        else if (Objects.equals(dataSet.get(position).line, "14")){
+        else if (Objects.equals(dataSet.get(position).line1, "14")){
             return R.drawable.line_fourteen;
         } else return R.drawable.line_error;
     }
 
-    private void setChanges(ViewHolder holder, int position){
-        if ((dataSet.get(position).hops).equals("0")){
-            holder.byten.setVisibility(View.INVISIBLE);
-        } else holder.byten.setText("Ett byte på " + dataSet.get(position).altbgStation + " kl " + dataSet.get(position).altbgTime);
-    }
+    //private void setChanges(ViewHolder holder, int position){
+    //    if ((dataSet.get(position).hops).equals("0")){
+    //        holder.byten.setVisibility(View.INVISIBLE);
+    //    } else holder.byten.setText("Ett byte på " + dataSet.get(position).altbgStation + " kl " + dataSet.get(position).altbgTime);
+    //}
 }
