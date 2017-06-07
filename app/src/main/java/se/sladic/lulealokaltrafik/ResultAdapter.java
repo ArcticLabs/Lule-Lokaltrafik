@@ -46,7 +46,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         holder.to.setText("Des:        " + dataSet.get(position).arrivalTime + "  -  " + dataSet.get(position).to);
         holder.time.setText("Restid:    " + dataSet.get(position).travelTime);
         setChanges(holder, position);
-        holder.line.setBackgroundResource(setLinePicture(holder, position));
+        holder.line.setBackgroundResource(setLinePicture(position));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         return dataSet.size();
     }
 
-    private int setLinePicture(ViewHolder holder, int position){
+    private int setLinePicture(int position){
         if (Objects.equals(dataSet.get(position).line, "1")){
             return R.drawable.line_one;
         }
@@ -91,7 +91,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     }
 
     private void setChanges(ViewHolder holder, int position){
-        if ((dataSet.get(position).hops) == "0"){
+        if ((dataSet.get(position).hops).equals("0")){
             holder.byten.setVisibility(View.INVISIBLE);
         } else holder.byten.setText("Ett byte på " + dataSet.get(position).altbgStation + " kl " + dataSet.get(position).altbgTime);
     }
