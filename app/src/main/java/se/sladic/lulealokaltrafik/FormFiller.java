@@ -88,27 +88,14 @@ public class FormFiller extends AsyncTask {
                 bus.positionFrom3    = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(4)").first().text();
                 bus.departureTime3   = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)").first().text();
             }
-
-            /*bus.departureTime   = results.select("tr > td:nth-of-type(2)").text();
-            bus.arrivalTime     = results.select("tr > td:nth-of-type(3)").text();
-            bus.travelTime      = results.select("tr > td:nth-of-type(4)").text();
-            bus.hops            = results.select("tr > td:nth-of-type(5)").text();
-
-            results = results.next();
-
-            bus.line    = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(2) > a").first().text();
-            bus.from    = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(3) > a").first().text();
-            bus.to      = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(2) > td:nth-of-type(3) > a:nth-of-type(2)").first().text();
-            Element e = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3)").first();
-            if (e != null){
-                bus.altbgLine    = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(2) > a").first().text();
-                bus.altbgStation = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(3) > a").first().text();
-                bus.altbgTime = results.select("tr > td:nth-of-type(1) > div:nth-of-type(1) > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)").first().text();
-            }*/
-            bus.print();
-
+            //bus.print();
             resultsArray.add(bus);
-            results = results.next();
+
+            //Check if new day
+            if (results.next().hasClass("dark-grey")){
+                results = results.next();
+                results = results.next();
+            } else results = results.next();
         }
 
         return resultsArray;
