@@ -16,7 +16,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     private ArrayList<Result> dataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView from, line1info;
+        public TextView from, line1info, line2info;
         public ImageView line1, line2, line3;
         public ViewHolder(View v){
             super(v);
@@ -24,6 +24,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             line2   = (ImageView) v.findViewById(R.id.imageView2);
             line3   = (ImageView) v.findViewById(R.id.imageView3);
             line1info = (TextView) v.findViewById(R.id.textView1);
+            line2info = (TextView) v.findViewById(R.id.textView2);
         }
     }
 
@@ -45,12 +46,15 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         } else if (dataSet.get(position).line2 != null){
             setLinePicturesVisibility(2, holder);
             holder.line1.setBackgroundResource(setLinePicture(position));
+            holder.line2.setBackgroundResource(setLinePicture(position));
+            holder.line1info.setText(dataSet.get(position).departureTime1 + "\n" + dataSet.get(position).from1 + "\n" + dataSet.get(position).via1 + "\n" + dataSet.get(position).positionFrom1);
+            holder.line2info.setText(dataSet.get(position).departureTime2 + "\n" + dataSet.get(position).from2 + "\n" + dataSet.get(position).via2 + "\n" + dataSet.get(position).positionFrom2);
         } else {
             setLinePicturesVisibility(1, holder);
             //holder.from.setText("Avg:        " + dataSet.get(position).departureTime1 + "  -  " + dataSet.get(position).from1);
             //holder.to.setText("Des:        " + dataSet.get(position).via2 + "  -  " + dataSet.get(position).departureTime2);
             holder.line1.setBackgroundResource(setLinePicture(position));
-            holder.line1info.setText(dataSet.get(position).departureTime1 + dataSet.get(position).from1 + dataSet.get(position).via1 + dataSet.get(position).positionFrom1);
+            holder.line1info.setText(dataSet.get(position).departureTime1 + "\n" + dataSet.get(position).from1 + "\n" + dataSet.get(position).via1 + "\n" + dataSet.get(position).positionFrom1);
         }
     }
 

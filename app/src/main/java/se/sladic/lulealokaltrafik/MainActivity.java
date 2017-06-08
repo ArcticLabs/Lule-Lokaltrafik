@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
         if (time.length() < 5){
             time = time + "0";
         }
-        System.out.println("Tiden att söka på: " + time);
         return time;
     }
 
