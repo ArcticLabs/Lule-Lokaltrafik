@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements FormFiller.OnTask
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.action_favorite:
+                View view = getCurrentFocus();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 selectTime();
                 return true;
             default:
