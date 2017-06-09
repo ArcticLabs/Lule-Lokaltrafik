@@ -82,12 +82,13 @@ public class FormFiller extends AsyncTask {
 
             // Jump to 3:nd line if available
             if (results.select("tr > td > div > table > tbody > tr:nth-of-type(4)").first() != null){
-                bus.line3            = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(2) > a").first().text();
-                bus.from3            = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(3) > a:nth-of-type(1)").first().text();
-                bus.via3             = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(3) > a:nth-of-type(2)").first().text();
-                bus.positionFrom3    = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(4)").first().text();
-                bus.departureTime3   = results.select("tr > td > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(5)").first().text();
+                bus.line3            = results.select("tr > td > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(2) > a").first().text();
+                bus.from3            = results.select("tr > td > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(3) > a:nth-of-type(1)").first().text();
+                bus.via3             = results.select("tr > td > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(3) > a:nth-of-type(2)").first().text();
+                bus.positionFrom3    = results.select("tr > td > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(4)").first().text();
+                bus.departureTime3   = results.select("tr > td > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(5)").first().text();
             }
+            bus.polarize();
             bus.print();
             resultsArray.add(bus);
 
